@@ -1,12 +1,15 @@
 package com.example.myapplication.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class PopularMovie(
     val page: Int,
     val results: List<Result>,
     val total_pages: Int,
     val total_results: Int
 )
-
+@Parcelize
 data class Result(
     val adult: Boolean,
     val backdrop_path: String,
@@ -22,4 +25,4 @@ data class Result(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+) : Parcelable
