@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             tools:text="hey there"
             android:gravity="center"
+            android:minHeight="32dp"
+            android:textIsSelectable="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
