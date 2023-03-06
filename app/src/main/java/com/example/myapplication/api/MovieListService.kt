@@ -10,4 +10,7 @@ interface MovieListService {
     @GET("3/movie/popular")
     suspend fun popularMovieList(@Query("api_key")apikey:String):Response<PopularMovie>
 
+    @GET("3/movie/popular")
+    suspend fun popularMovieList2(@Query("api_key")apikey:String, @Query("page")page:Int):Response<PopularMovie>
+
 }

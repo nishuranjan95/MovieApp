@@ -3,6 +3,7 @@ package com.example.myapplication.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.example.myapplication.models.PopularMovie
 import com.example.myapplication.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,4 +18,6 @@ class MainViewModel(private val movieRepository: MovieRepository):ViewModel() {
     }
     val popularMovieData:LiveData<PopularMovie>
     get() = movieRepository.popularMovieLiveData
+
+    val pagingMovieList=movieRepository.getPagingMovies().cachedIn(viewModelScope)
 }
