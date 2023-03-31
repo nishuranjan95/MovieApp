@@ -1,7 +1,8 @@
 package com.example.myapplication.models
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+
 
 data class PopularMovie(
     val page: Int,

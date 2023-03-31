@@ -16,7 +16,7 @@
             android:id="@+id/movieDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="hey there"
+            android:text="hey there"
             android:gravity="center"
             android:minHeight="32dp"
             android:textIsSelectable="true"

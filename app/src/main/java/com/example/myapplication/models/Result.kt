@@ -1,7 +1,9 @@
 package com.example.myapplication.models
 
-
-    data class Result(
+//@Entity(tableName = "popularMovies")
+data class Result(
+        //@PrimaryKey(autoGenerate = true)
+        var pId:Int,
         val adult: Boolean,
         val backdrop_path: String,
         val genre_ids: List<Int>,
@@ -16,4 +18,4 @@ package com.example.myapplication.models
         val video: Boolean,
         val vote_average: Double,
         val vote_count: Int
-    )
+        )

@@ -9,7 +9,7 @@ import com.example.myapplication.api.MovieListService
 import com.example.myapplication.models.PopularMovie
 import com.example.myapplication.paging.MoviePagingSource
 
-class MovieRepository(private var movieListService: MovieListService) {
+class MovieRepository(private var movieListService: MovieListService){
       private val popularMutableLiveData=MutableLiveData<PopularMovie>()
 //      private val pagingPopularMutableLiveData=MutableLiveData<PagingData<com.example.myapplication.models.Result>>()
 //
@@ -30,6 +30,7 @@ class MovieRepository(private var movieListService: MovieListService) {
         config = PagingConfig(pageSize=20,maxSize=100),
         pagingSourceFactory = { MoviePagingSource(movieListService) }
     ).liveData
+
 
 
 }
