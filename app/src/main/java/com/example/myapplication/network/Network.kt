@@ -27,4 +27,6 @@ object Network {
         }
         return false
     }
+    fun checkNetwork(){
+    }
 }

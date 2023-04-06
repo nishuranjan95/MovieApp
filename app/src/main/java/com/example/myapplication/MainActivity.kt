@@ -1,19 +1,20 @@
 package com.example.myapplication
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.fragments.SecondFragment
 import com.example.myapplication.fragments.StartFragment
 import com.example.myapplication.interfaces.OnMovieItemClick
 import com.example.myapplication.network.Network
@@ -34,20 +35,15 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
-        //networkChangeReceiver= NetworkChangeReceiver()
-        localBroadcastManager=LocalBroadcastManager.getInstance(this)
-//        val filter = IntentFilter("com.example.myapplication.NETWORK")
-//        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-//        registerReceiver(networkChangeReceiver, filter)
-
-//        val filter = IntentFilter("com.example.myapplication.NETWORK")
-//        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
-//        localBroadcastManager.registerReceiver(apiCallReceiver, filter)
-        if(!Network.isConnected(applicationContext)) {
-            Toast.makeText(applicationContext,"Please turn on network",Toast.LENGTH_SHORT).show()
+        localBroadcastManager=LocalBroadcastManager.getInstance(applicationContext)
+//        val intent=Intent(CONNECTIVITY_ACTION)
+//        localBroadcastManager.sendBroadcast(intent)
+        //setWorker()
+        if (!Network.isConnected(applicationContext)) {
+            Toast.makeText(applicationContext, "Please turn on network", Toast.LENGTH_SHORT).show()
 
         } else {
-         initialize()
+            initialize()
         }
         val fragment= StartFragment()
         binding.button.setOnClickListener{
@@ -81,23 +77,34 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
         observer(this)
     }
 
-    override fun onPause() {
-        super.onPause()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(apiCallReceiver)
+    override fun onDestroy() {
+        super.onDestroy()
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(apiCallReceiver)
 
     }
     private val apiCallReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == "com.example.myapplication.NETWORK") {
-                initialize()
+            if (intent?.action == "android.net.conn.CONNECTIVITY_CHANGE") {
+                Log.i("networkcall2",intent.action.toString())
+                if(Network.isConnected(context)) initialize()
+                else{
+                    Toast.makeText(context,"turn on network",Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     override fun onResume() {
+       // localBroadcastManager.registerReceiver(apiCallReceiver,IntentFilter(CONNECTIVITY_SERVICE))
         super.onResume()
-        val filter = IntentFilter("com.example.myapplication.NETWORK")
-        LocalBroadcastManager.getInstance(this).registerReceiver(apiCallReceiver, filter)
+        setWorker()
     }
-
+    private fun setWorker() {
+        val constraint=androidx.work.Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val networkRequest= OneTimeWorkRequest
+            .Builder(DummyWorker::class.java)
+            .setConstraints(constraint)//i added constraints
+            .build()
+        WorkManager.getInstance(this).enqueue(networkRequest)
+    }
 }
