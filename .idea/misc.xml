@@ -6,9 +6,11 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_otpverification.xml" value="0.20520833333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.21927083333333333" />
+        <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.21927083333333333" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.1" />
         <entry key="app/src/main/res/layout/singleitem.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/maps_option_type.xml" value="0.2296875" />
       </map>
     </option>
   </component>

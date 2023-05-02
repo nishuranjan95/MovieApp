@@ -10,6 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.myapplication.DummyWorker
 import com.example.myapplication.MyApplication
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val movieRepository: MovieRepository):ViewModel() {
 
     //private lateinit var context:Context;
+    private val workStatusLiveData = MutableLiveData<WorkInfo>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -57,7 +59,6 @@ class MainViewModel(private val movieRepository: MovieRepository):ViewModel() {
             .build()
         WorkManager.getInstance(context).getWorkInfoByIdLiveData(networkRequest.id)
             .observe(lifecycleOwner) {
-                    //pagingMovieList= it.outputData.get
 
             }
 
