@@ -18,7 +18,7 @@ class MoviePagingSource(private val movieListService: MovieListService): PagingS
 
         return try{
             val pos=params.key?:1
-            val response=movieListService.popularMovieList2("5f3e92a58253101f7f1a2cd537afbb94",pos)
+            val response=movieListService.popularMovieList2(pos)
             val prevKey=if(pos==1) null else pos-1
             val nextKey= if(pos == response.body()?.total_pages) null else (pos + 1)
             LoadResult.Page(response.body()!!.results,prevKey,nextKey)

@@ -1,7 +1,6 @@
-package com.example.myapplication
+package com.example.myapplication.activity
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,9 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -30,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_sign_up)
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         requestPermission()
         phoneCheck()
     }
@@ -41,7 +39,7 @@ class SignUpActivity : AppCompatActivity() {
             if(text.length<10){
                 Toast.makeText(this,"Please Enter Valid Number",Toast.LENGTH_SHORT).show()
             } else{
-                val intent=Intent(this@SignUpActivity,OTPVerificationActivity::class.java)
+                val intent=Intent(this@SignUpActivity, OTPVerificationActivity::class.java)
                 intent.putExtra("mobile",text)
                 startActivity(intent)
             }

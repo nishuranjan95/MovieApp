@@ -5,12 +5,8 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MovieListService {
-
+interface BookListService {
     @GET("3/movie/popular")
-    suspend fun popularMovieList():Response<PopularMovie>
-
-    @GET("3/movie/popular")
-    suspend fun popularMovieList2(@Query("page")page:Int):Response<PopularMovie>
+    suspend fun popularBookList(@Query("api_key")apikey:String): Response<PopularMovie>
 
 }

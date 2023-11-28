@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.example.myapplication.DummyWorker
+import com.example.myapplication.MyApplication
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.fragments.StartFragment
 import com.example.myapplication.interfaces.OnMovieItemClick
@@ -34,7 +37,7 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_main)
         localBroadcastManager=LocalBroadcastManager.getInstance(applicationContext)
 //        val intent=Intent(CONNECTIVITY_ACTION)
 //        localBroadcastManager.sendBroadcast(intent)
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
         }
         val fragment= StartFragment()
         binding.button.setOnClickListener{
-            supportFragmentManager.beginTransaction().replace(binding.framelayout.id,fragment,fragment::class.java.name)
+            supportFragmentManager.beginTransaction().replace(binding.framelayout.id,fragment)
                 .addToBackStack(null)
                 .commit()
         }
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
     }
 
     override fun onClick(movie: com.example.myapplication.models.Result) {
-        val intent=Intent(applicationContext,MovieDetailsActivity::class.java)
+        val intent=Intent(applicationContext, MovieDetailsActivity::class.java)
         intent.putExtra("movie",movie.overview)
         startActivity(intent)
     }
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity(),OnMovieItemClick {
     override fun onResume() {
        // localBroadcastManager.registerReceiver(apiCallReceiver,IntentFilter(CONNECTIVITY_SERVICE))
         super.onResume()
-        setWorker()
+        //setWorker()
     }
     private fun setWorker() {
         val constraint=androidx.work.Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()

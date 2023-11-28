@@ -10,5 +10,8 @@
     <string name="lat_long_snippet">Lat: %1$.5f, Long: %2$.5f</string>
     <string name="dropped_pin">Dropped Pin</string>
     <string name="poi">poi</string>
+    <string name="facebook_app_id">589692132943890</string>
+    <string name="facebook_client_token">70cffc3da3774da087c64972b70b4021</string>
+    <string name="fb_login_protocol_scheme">fb70cffc3da3774da087c64972b70b4021</string>
 
 </resources>

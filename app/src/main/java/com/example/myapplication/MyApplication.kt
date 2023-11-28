@@ -9,6 +9,9 @@ import com.example.myapplication.api.RetrofitHelper
 import com.example.myapplication.repository.MovieRepository
 import com.example.myapplication.viewmodels.MainViewModel
 import com.example.myapplication.viewmodels.MainViewModelFactory
+import dagger.hilt.android.HiltAndroidApp
+import kotlin.text.Typography.dagger
+
 
 class MyApplication: Application() {
     lateinit var movieRepository:MovieRepository
@@ -23,8 +26,8 @@ class MyApplication: Application() {
         initialize()
     }
     private fun initialize(){
-        val movieListService = RetrofitHelper.getInstance().create(MovieListService::class.java)
-        movieRepository = MovieRepository(movieListService,)
+        val movieListService = RetrofitHelper.getAuthInstance().create(MovieListService::class.java)
+        movieRepository = MovieRepository(movieListService)
     }
 
 }

@@ -21,7 +21,7 @@ class MovieRepository(private var movieListService: MovieListService){
     get()=popularMutableLiveData
 
     suspend fun getPopularMovie(apiKey:String){
-        val result=movieListService.popularMovieList(apiKey)
+        val result=movieListService.popularMovieList()
         if(result.body() !=null){
             popularMutableLiveData.postValue(result.body())
         }

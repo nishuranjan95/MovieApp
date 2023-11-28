@@ -1,13 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.enableSavedStateHandles
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityOtpverificationBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -22,7 +21,7 @@ class OTPVerificationActivity : AppCompatActivity() {
     private  var TAG="OTPVerificationActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_otpverification)
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_otpverification)
         mAuth= FirebaseAuth.getInstance()
         val number=intent.getStringExtra("mobile")
         sendVerificationCode("+91$number")
@@ -101,7 +100,7 @@ class OTPVerificationActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = task.result?.user
-                    startActivity(Intent(this,MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
